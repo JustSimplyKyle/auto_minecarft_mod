@@ -22,7 +22,9 @@ jobs:
         run: java -jar Iris/brachyura-bootstrap-0.jar build
         
       - name: copy mods
-        run: cp $(ls Iris/build/libs | grep -oP '^(?!.*sources)(?!.*dirty)(?!.*dev).*') ./mods
+        run: |
+          ls Iris/build/libs
+          cp $(ls Iris/build/libs | grep -oP '^(?!.*sources)(?!.*dirty)(?!.*dev).*') ./mods
   build-sodium:
     runs-on: ubuntu-latest
     steps:
@@ -45,7 +47,7 @@ jobs:
       - name: compile sodium
         run: |
           cd sodium-fabric/
-          gradlew build
+          ./gradlew build
   
       - name: copy mods
         run: cp $(ls sodium-fabric/build/libs | grep -oP '^(?!.*sources)(?!.*dirty)(?!.*dev).*') ./mods

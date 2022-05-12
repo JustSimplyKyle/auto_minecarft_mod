@@ -23,8 +23,7 @@ jobs:
         
       - name: copy mods
         run: |
-          ls Iris/build/libs
-          cp $(ls Iris/build/libs | grep -oP '^(?!.*sources)(?!.*dirty)(?!.*dev).*') ./mods
+          cp Iris/build/libs/$(ls Iris/build/libs | grep -oP '^(?!.*sources)(?!.*dirty)(?!.*dev).*') ./mods
   build-sodium:
     runs-on: ubuntu-latest
     steps:
@@ -50,7 +49,7 @@ jobs:
           ./gradlew build
   
       - name: copy mods
-        run: cp $(ls sodium-fabric/build/libs | grep -oP '^(?!.*sources)(?!.*dirty)(?!.*dev).*') ./mods
+        run: cp sodium-fabric/build/libs/$(ls sodium-fabric/build/libs | grep -oP '^(?!.*sources)(?!.*dirty)(?!.*dev).*') ./mods
   release:
     runs-on: ubuntu-latest
     needs: [build-sodium, build-iris]

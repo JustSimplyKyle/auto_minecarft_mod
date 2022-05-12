@@ -55,7 +55,7 @@ jobs:
       - name: Upload build artefacts
         uses: actions/upload-artifact@v3
         with:
-          name: sodium
+          name: sodium-fabric
           path: mods/*
   release:
     runs-on: ubuntu-latest
@@ -75,4 +75,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Artifacts
-          path: mods/
+          path: mods/*

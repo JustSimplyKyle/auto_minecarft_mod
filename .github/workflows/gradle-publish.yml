@@ -45,7 +45,8 @@ jobs:
           java-version: 18
       - name: move into sodium
         run: cd sodium-fabric
-        
+      - name: chmod gradlew
+        run: chmod +x gradlew
       - name: compile sodium
         run: ./gradlew build
   

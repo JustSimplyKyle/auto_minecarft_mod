@@ -14,19 +14,10 @@ jobs:
           java-version: 18
           
       - name: add mods folder
-        run:  mkdir ../mods  
-        
-      - name: Cache Brachyura directory
-        uses: actions/cache@v2
-        with:
-          path: |
-            Iris/.brachyura
-            ~.brachyura
-          key: ${{ runner.os }}-brachyura-${{ hashFiles('**/Buildscript.java') }}
-          restore-keys: ${{ runner.os }}-brachyura
+        run:  mkdir mods  
 
       - name: Build with Brachyura
-        run: java -jar brachyura-bootstrap-0.jar build
+        run: java -jar Iris/brachyura-bootstrap-0.jar build
         
       - name: copy mods
         run: cp $(ls Iris/build/libs | grep -oP '^(?!.*sources)(?!.*dirty)(?!.*dev).*') ./mods
@@ -40,11 +31,13 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 18
+          
       - name: add mods folder    
-        run:  mkdir ../mods  
+        run:  mkdir mods  
         
       - name: chmod gradlew
         run: chmod +x sodium-fabric/gradlew
+        
       - name: compile sodium
         run: sodium-fabric/gradlew build
   

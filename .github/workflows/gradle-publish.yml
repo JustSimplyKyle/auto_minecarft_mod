@@ -43,7 +43,9 @@ jobs:
         run: chmod +x sodium-fabric/gradlew
         
       - name: compile sodium
-        run: sodium-fabric/gradlew build
+        run: |
+          cd sodium-fabric/
+          gradlew build
   
       - name: copy mods
         run: cp $(ls sodium-fabric/build/libs | grep -oP '^(?!.*sources)(?!.*dirty)(?!.*dev).*') ./mods

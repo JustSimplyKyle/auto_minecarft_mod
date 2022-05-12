@@ -69,7 +69,7 @@ jobs:
       - name: Download artefacts
         uses: actions/download-artifact@v3
         with:
-          name: sodium
+          name: sodium-fabric
           path: ./mods
       - name: capture build artifacts
         uses: actions/upload-artifact@v2

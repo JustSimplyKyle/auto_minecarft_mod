@@ -16,15 +16,12 @@ jobs:
       - name: add mods folder
         run:  mkdir ../mods  
         
-      - name: move into Iris
-        run: cd Iris
-        
       - name: Cache Brachyura directory
         uses: actions/cache@v2
         with:
           path: |
-            .brachyura
-            ~/.brachyura
+            Iris/.brachyura
+            ~.brachyura
           key: ${{ runner.os }}-brachyura-${{ hashFiles('**/Buildscript.java') }}
           restore-keys: ${{ runner.os }}-brachyura
 
@@ -32,7 +29,7 @@ jobs:
         run: java -jar brachyura-bootstrap-0.jar build
         
       - name: copy mods
-        run: cp $(ls build/libs | grep -oP '^(?!.*sources)(?!.*dirty)(?!.*dev).*') ../mods
+        run: cp $(ls Iris/build/libs | grep -oP '^(?!.*sources)(?!.*dirty)(?!.*dev).*') ./mods
   build-sodium:
     runs-on: ubuntu-latest
     steps:
@@ -43,15 +40,16 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 18
-      - name: move into sodium
-        run: cd sodium-fabric
+      - name: add mods folder    
+        run:  mkdir ../mods  
+        
       - name: chmod gradlew
-        run: chmod +x gradlew
+        run: chmod +x sodium-fabric/gradlew
       - name: compile sodium
-        run: ./gradlew build
+        run: sodium-fabric/gradlew build
   
       - name: copy mods
-        run: cp $(ls build/libs | grep -oP '^(?!.*sources)(?!.*dirty)(?!.*dev).*') ../mods
+        run: cp $(ls sodium-fabric/build/libs | grep -oP '^(?!.*sources)(?!.*dirty)(?!.*dev).*') ./mods
   release:
     runs-on: ubuntu-latest
     needs: [build-sodium, build-iris]

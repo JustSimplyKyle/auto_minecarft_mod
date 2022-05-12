@@ -40,7 +40,8 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 18
-        
+      - name: add mods folder
+        run:  mkdir mods  
       - name: chmod gradlew
         run: chmod +x sodium-fabric/gradlew
         
